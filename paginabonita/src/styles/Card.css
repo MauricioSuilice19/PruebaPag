@@ -56,8 +56,8 @@
 /* Animación más suave del sobre */
 .envelope {
   position: relative;
-  width: 300px;
-  height: 200px;
+  width: 380px;   /* más grande */
+  height: 250px;  /* más grande */
   background: #fff;
   cursor: pointer;
   transition: transform 1.2s ease-in-out, opacity 1.2s ease-in-out;
@@ -82,31 +82,35 @@
   border: 2px solid #e0e0e0;
 }
 
+/* Sello de corazón al frente */
 .heart-seal {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   background: #ff4b4b;
-  position: relative;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   transform: rotate(45deg);
-  margin-bottom: 20px;
+  z-index: 5; /* siempre adelante */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .heart-seal:before,
 .heart-seal:after {
   content: '';
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   background: #ff4b4b;
   border-radius: 50%;
   position: absolute;
 }
 
 .heart-seal:before {
-  left: -25px;
+  left: -35px;
 }
 
 .heart-seal:after {
-  top: -25px;
+  top: -35px;
 }
 
 .to-from {
@@ -116,32 +120,39 @@
 }
 
 .to-from p {
-  margin: 5px 0;
-  font-size: 1.2em;
+  margin: 2 20px;
+  font-size: 1.4em;
+  color: #333;
+  text-align: center;
 }
 
+/* Carta más clara y legible */
 .letter {
   position: absolute;
-  width: 90%;
-  height: 90%;
+  width: 92%;
+  height: 92%;
   background: white;
-  top: 5%;
-  left: 5%;
+  top: 4%;
+  left: 4%;
   padding: 20px;
   transform: rotateX(180deg);
   backface-visibility: hidden;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
   transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
 }
 
 .letter-content {
   text-align: center;
   font-family: 'Dancing Script', cursive;
+  color: #333; /* contraste mejorado */
+  text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.7);
 }
 
 .letter-content h1 {
-  color: #ff4b4b;
+  color: #ff2e63; /* más vivo */
   margin-bottom: 20px;
+  font-size: 1.6em;
+  text-shadow: 1px 1px 4px rgba(255,255,255,0.8);
 }
 
 .flap {
