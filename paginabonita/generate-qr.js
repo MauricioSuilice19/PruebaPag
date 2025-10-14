@@ -1,22 +1,26 @@
 // generate-qr.js
-const QRCode = import("qrcode");
+import { mkdirSync } from "fs";
+import { toFile } from "qrcode";
 
-// URL de tu web en Firebase Hosting
-const url = "https://tuproyecto.web.app"; // <-- reemplazá con tu URL real
+// ⚡ URL real de tu Firebase Hosting
+const url = "https://paginabonita-9fb3f.web.app";
 
-// Genera el QR como archivo PNG
-QRCode.toFile(
-  "qr.png",
+// Crear carpeta dist si no existe (por seguridad)
+mkdirSync("./dist", { recursive: true });
+
+// Generar archivo qr.png dentro de dist/
+toFile(
+  "./dist/qr.png",
   url,
   {
     color: {
-      dark: "#000000", // color del código
-      light: "#ffffff", // color de fondo
+      dark: "#000000", // Color del QR
+      light: "#ffffff", // Fondo
     },
-    width: 400, // tamaño en píxeles
+    width: 400, // Tamaño
   },
   function (err) {
     if (err) throw err;
-    console.log("✅ QR generado: qr.png");
+    console.log("✅ QR generado en dist/qr.png");
   }
 );
