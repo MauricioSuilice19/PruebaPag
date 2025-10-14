@@ -8,11 +8,13 @@
     "build": "vite build && npm run copy-redirects",
     "copy-redirects": "powershell Copy-Item -Path ./public/_redirects -Destination ./dist/_redirects -Force",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "qr": "node generate-qr.js"
   },
   "dependencies": {
     "@fontsource/dancing-script": "^5.2.8",
     "firebase": "^12.4.0",
+    "qrcode": "^1.5.4",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
