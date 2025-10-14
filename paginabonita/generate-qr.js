@@ -1,5 +1,5 @@
 // generate-qr.js
-const QRCode = require("qrcode");
+const QRCode = import("qrcode");
 
 // URL de tu web en Firebase Hosting
 const url = "https://tuproyecto.web.app"; // <-- reemplazá con tu URL real
