@@ -1,34 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [hearts, setHearts] = useState([])
+
+  useEffect(() => {
+    // Crear corazones y pétalos flotantes
+    const createFloatingElements = () => {
+      const newHearts = []
+      for (let i = 0; i < 20; i++) {
+        newHearts.push({
+          id: i,
+          left: `${Math.random() * 100}%`,
+          delay: `${Math.random() * 15}s`,
+          size: `${Math.random() * 20 + 10}px`,
+          type: Math.random() > 0.5 ? 'heart' : 'petal'
+        })
+      }
+      setHearts(newHearts)
+    }
+    createFloatingElements()
+  }, [])
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app-container">
+      <div className="floating-hearts">
+        {hearts.map((heart) => (
+          <div
+            key={heart.id}
+            className={heart.type}
+            style={{
+              left: heart.left,
+              animationDelay: heart.delay,
+              fontSize: heart.size,
+            }}
+          >
+            {heart.type === 'heart' ? '❤' : '🌸'}
+          </div>
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="love-container">
+        <h1>Mi Amor Eterno</h1>
+        <div className="message-card">
+          <p>Para la persona que ilumina mis días,</p>
+          <p>Cada momento contigo es un regalo,</p>
+          <p>Cada sonrisa tuya es mi felicidad,</p>
+          <p>Te amo más que a nada en este mundo.</p>
+        </div>
+        <div className="photo-placeholder">
+          <p>Pronto agregaremos nuestras fotos aquí</p>
+          <span className="heart-icon">❤</span>
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 

@@ -1,15 +1,329 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Estilos base y reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+  background: linear-gradient(135deg, 
+    rgba(255, 192, 203, 0.3),
+    rgba(147, 197, 253, 0.3),
+    rgba(255, 182, 193, 0.3),
+    rgba(173, 216, 230, 0.3));
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Contenedor principal */
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* Contenedor de contenido */
+.love-container {
+  position: relative;
+  z-index: 1;
+  padding: 1rem;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Animaciones de corazones y pétalos */
+.floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.heart, .petal {
+  position: absolute;
+  animation: float 15s infinite;
+  opacity: 0;
+  will-change: transform;
+  transform: translateZ(0);
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.heart {
+  color: #ff6b6b;
+  text-shadow: 0 0 8px rgba(255, 107, 107, 0.5);
+  filter: drop-shadow(0 0 5px rgba(255, 107, 107, 0.3));
+  animation-name: floatHeart;
+}
+
+.petal {
+  color: #ffb3b3;
+  text-shadow: 0 0 8px rgba(255, 179, 179, 0.5);
+  filter: drop-shadow(0 0 5px rgba(255, 179, 179, 0.3));
+  animation-name: floatPetal;
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translateY(100vh) translateX(-20vw) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100px) translateX(20vw) rotate(360deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes floatPetal {
+  0% {
+    transform: translateY(100vh) translateX(20vw) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100px) translateX(-20vw) rotate(-360deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Título y textos */
+h1 {
+  color: #ff4d6d;
+  font-size: clamp(2rem, 8vw, 3rem);
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0 1rem;
+  line-height: 1.2;
+}
+
+/* Tarjeta de mensaje */
+.message-card {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin: 1rem auto;
+  width: 90%;
+  max-width: 600px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  position: relative;
+  overflow: hidden;
+  animation: cardAppear 1s ease-out;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.message-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shine 8s infinite linear;
+}
+
+.message-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(255, 77, 109, 0.2);
+}
+
+.message-card p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin: 0.8rem 0;
+  font-size: clamp(1rem, 4vw, 1.2rem);
+  padding: 0 0.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: textAppear 0.5s ease-out forwards;
+}
+
+.message-card p:nth-child(1) { animation-delay: 0.2s; }
+.message-card p:nth-child(2) { animation-delay: 0.4s; }
+.message-card p:nth-child(3) { animation-delay: 0.6s; }
+.message-card p:nth-child(4) { animation-delay: 0.8s; }
+
+/* Placeholder para fotos */
+.photo-placeholder {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 2rem 1rem;
+  border-radius: 1rem;
+  margin: 1.5rem auto;
+  width: 90%;
+  max-width: 400px;
+  border: 2px dashed #ff4d6d;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  animation: cardAppear 1s ease-out 0.5s both;
+}
+
+.photo-placeholder::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 77, 109, 0.1) 0%,
+    transparent 70%
+  );
+  animation: glow 3s infinite ease-in-out;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  20% { left: 100%; }
+  100% { left: 100%; }
+}
+
+@keyframes glow {
+  0% { transform: translate(-30%, -30%) rotate(0deg); }
+  50% { transform: translate(-30%, -30%) rotate(180deg); }
+  100% { transform: translate(-30%, -30%) rotate(360deg); }
+}
+
+@keyframes cardAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes textAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.photo-placeholder p {
+  color: #718096;
+  margin-bottom: 0.8rem;
+  font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+}
+
+.heart-icon {
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  color: #ff4d6d;
+  display: block;
+  margin-top: 0.8rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Media queries específicos para dispositivos móviles */
+@media (max-width: 480px) {
+  #root {
+    padding: 0.5rem;
+  }
+
+  .love-container {
+    padding: 0.5rem;
+  }
+
+  .message-card {
+    padding: 1.2rem;
+    margin: 1rem auto;
+    width: 95%;
+  }
+
+  .photo-placeholder {
+    padding: 1.5rem 1rem;
+    margin: 1rem auto;
+    width: 95%;
+  }
+}
+
+/* Orientación landscape en móviles */
+@media (max-height: 480px) and (orientation: landscape) {
+  .app-container {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+    margin-bottom: 1rem;
+  }
+
+  .message-card, .photo-placeholder {
+    padding: 1rem;
+    margin: 0.8rem auto;
+  }
+
+  .message-card p {
+    margin: 0.5rem 0;
+  }
+}
+
+/* Soporte para pantallas con notch */
+@supports (padding: max(0px)) {
+  .app-container {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
