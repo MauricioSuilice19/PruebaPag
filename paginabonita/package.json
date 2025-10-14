@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run copy-redirects",
+    "copy-redirects": "powershell Copy-Item -Path ./public/_redirects -Destination ./dist/_redirects -Force",
     "lint": "eslint .",
     "preview": "vite preview"
   },
