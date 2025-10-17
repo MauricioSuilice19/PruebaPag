@@ -18,12 +18,7 @@ const Card = () => {
   };
 
   // Usa tus imágenes locales desde /public/fotos/
-  const images = [
-  '/fotos/foto1.jpg',
-  '/fotos/foto2.jpg',
-  '/fotos/foto3.jpg',
-  '/fotos/foto4.jpg'
-  ];
+const images = ['fotos/foto1.jpg','fotos/foto2.jpg','fotos/foto3.jpg','fotos/foto4.jpg'];
 
   return (
     <div className="card-container" onClick={handleClick}>
