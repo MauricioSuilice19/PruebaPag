@@ -7,25 +7,26 @@ const Card = () => {
 
   const handleClick = () => {
     if (!isOpen) {
-      setIsOpen(true);
+      setIsOpen(true);          // 1er tap: abre el sobre
     } else if (!showPhotos) {
-      setShowPhotos(true);
+      setShowPhotos(true);      // 2do tap: muestra FOTOS
     } else {
-      // Reiniciar al estado inicial
+      // 3er tap: reinicia
       setIsOpen(false);
       setShowPhotos(false);
     }
   };
 
-  const photos = [
-    'https://placehold.co/600x400/pink/white?text=Foto+1',
-    'https://placehold.co/600x400/pink/white?text=Foto+2',
-    'https://placehold.co/600x400/pink/white?text=Foto+3'
+  // Usa tus imágenes locales desde /public/fotos/
+  const images = [
+  '/fotos/foto1.jpg',
+  '/fotos/foto2.jpg',
+  '/fotos/foto3.jpg',
+  '/fotos/foto4.jpg'
   ];
 
   return (
     <div className="card-container" onClick={handleClick}>
-      
       {/* Fondo animado */}
       <div className="background">
         {Array.from({ length: 15 }).map((_, i) => (
@@ -43,9 +44,10 @@ const Card = () => {
 
       {!showPhotos ? (
         <div className={`envelope ${isOpen ? 'open' : ''}`}>
-          {/* Sello corazón arriba a la derecha */}
+          {/* Sello corazón */}
           <div className="heart-seal"></div>
 
+          {/* Frente del sobre */}
           <div className="front">
             <div className="to-from">
               <p className="to">Para: Trini</p>
@@ -54,6 +56,7 @@ const Card = () => {
             </div>
           </div>
 
+          {/* Carta */}
           <div className="letter">
             <div className="letter-content">
               <h1>¡Felices 3 Meses Mi Amor!</h1>
@@ -70,18 +73,21 @@ const Card = () => {
           <div className="flap"></div>
         </div>
       ) : (
+        // SOLAPA FOTOS
         <div className="photo-gallery">
-          {photos.map((photo, index) => (
-            <img
-              key={index}
-              src={photo}
-              alt={`Foto ${index + 1}`}
-              className="memory-photo"
-            />
-          ))}
-          <div className="restart-hint">
-            Toca para volver al inicio ❤️
+          <h2 className="gallery-title">Nuestros momentos 💖</h2>
+          <div className="gallery-grid">
+            {images.map((src, index) => (
+              <img
+                key={index}
+                src={src}
+                alt={`Foto ${index + 1}`}
+                className="memory-photo"
+                loading="lazy"
+              />
+            ))}
           </div>
+          <div className="restart-hint">Toca para volver al inicio ❤️</div>
         </div>
       )}
     </div>
